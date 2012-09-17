@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<%= debug @user %>
+<%= debug @user.exercises %>
+<%= debug @user.exercises.activities %>
+
+<p>
+  <b>Name:</b>
+  <%= @user.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @user.phone %>
+</p>
+
+<p>
+  <b>Exercises:</b>
+  <%= join_exercises(@user) %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
