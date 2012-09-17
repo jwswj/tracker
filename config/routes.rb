@@ -8,6 +8,10 @@ Tracker::Application.routes.draw do
     resources :users
   end
 
+  resources :exercises_users do
+    resources :activities
+  end
+
   resources :activities
 
   get "home/index"

@@ -2,7 +2,8 @@
 
 <table>
   <tr>
-    <th>Exercise User ID</th>
+    <th>User</th>
+    <th>Exercise</th>
     <th>Description</th>
     <th></th>
     <th></th>
@@ -11,7 +12,8 @@
 
 <% @activities.each do |activity| %>
   <tr>
-    <td><%= activity.exercise_user_id %></td>
+    <td><%= activity.user.name %></td>
+    <td><%= activity.exercise.title %></td>
     <td><%= activity.description %></td>
     <td><%= link_to 'Show', activity %></td>
     <td><%= link_to 'Edit', edit_activity_path(activity) %></td>

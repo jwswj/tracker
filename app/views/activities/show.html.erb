@@ -1,12 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Exercise User ID:</b>
-  <%= @activity.exercise_user_id %>
+  <b>User Name:</b>
+  <%= @activity.user.name %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <b>Exercise Name:</b>
+  <%= @activity.exercise.title %>
+</p>
+
+<p>
+  <b>Activity Description:</b>
   <%= @activity.description %>
 </p>
 
