@@ -1,0 +1,61 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: black;
+
+  h1 {
+    margin: 0;
+    padding: 1rem;
+    color: #FFF;
+  }
+
+  .settings {
+    float: right;
+  }
+
+}
+
+#app {
+
+  padding: 1rem;
+  font-size: 1rem;
+
+  table {
+
+    input {
+
+      font-size: 1rem;
+      width: 4rem;
+      height: 3rem;
+      text-align: center;
+      border: 1px solid #000;
+
+    }
+
+  }
+
+  #user_remove {
+    display: block;
+    float: right;
+    height: 3rem;
+    width: 4rem;
+
+  }
+
+  #user_add {
+    display: block;
+    border: 1px solid #000;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  #user_select {
+    display: none;
+  }
+
+}

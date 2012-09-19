@@ -12,4 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require handlebars.min
+//= require ember-1.0.pre.min.js
+//= require app
 //= require_tree .
