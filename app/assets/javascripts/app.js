@@ -1,18 +1,32 @@
 
 /* Application */
-window.app || (window.app = Em.Application.create({
+App = Em.Application.create({
   VERSION: 1.0,
   rootElement: '#app',
-  storeNamespace: 'tracker',
+  storeNamespace: 'Tracker',
   ApplicationController: Em.Controller.extend(),
   ready: function() {
-    return this.initialize;
+    this.initialize();
   }
-}));
+});
 
+/* Routes */
+App.Router = Em.Router.extend({
+  root: Em.Route.extend({
+    aRoute: Em.Route.extend({
+      route: '/',
+      enter: function(router) {
+        console.log("entering root.aRoute from", router.get('currentState.name'));
+      },
+      connectOutlets: function(router) {
+        console.log("entered root.aRoute, fully transitioned to", router.get('currentState.path'));
+      }
+    })
+  })
+});
 
 /* Models */
-app.User = Em.Object.extend({
+App.User = Em.Object.extend({
   id: null,
   name: null,
   email: null,
@@ -20,12 +34,12 @@ app.User = Em.Object.extend({
   displayed: false
 });
 
-app.Exercise = Em.Object.extend({
+App.Exercise = Em.Object.extend({
   id: null,
   title: null
 });
 
-app.Activity = Em.Object.extend({
+App.Activity = Em.Object.extend({
   id: null,
   description: null,
   exercise_id: null,
@@ -34,5 +48,10 @@ app.Activity = Em.Object.extend({
 
 
 /* Controllers */
+App.UsersController = Ember.Controller.extend({
+
+
+
+});
 
 /* Views */
