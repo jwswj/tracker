@@ -13,15 +13,23 @@ App = Em.Application.create({
 /* Routes */
 App.Router = Em.Router.extend({
   root: Em.Route.extend({
-    aRoute: Em.Route.extend({
+
+    index: Em.Route.extend({
       route: '/',
       enter: function(router) {
-        console.log("entering root.aRoute from", router.get('currentState.name'));
+        console.log("entering root.index from", router.get('currentState.name'));
       },
       connectOutlets: function(router) {
-        console.log("entered root.aRoute, fully transitioned to", router.get('currentState.path'));
+        console.log("entered root.index, fully transitioned to", router.get('currentState.path'));
+        console.log( router.get('applicationController') );
+        //router.get('applicationController').connectOutlet('users', App.User.find());
       }
-    })
+    }),
+
+    /*enter: Em.Route.extend({
+      route: '/activities/:user'
+    })*/
+
   })
 });
 
@@ -34,7 +42,7 @@ App.User = Em.Object.extend({
   displayed: false
 });
 
-App.Exercise = Em.Object.extend({
+/*App.Exercise = Em.Object.extend({
   id: null,
   title: null
 });
@@ -44,14 +52,25 @@ App.Activity = Em.Object.extend({
   description: null,
   exercise_id: null,
   user_id: null
-});
+});*/
 
 
 /* Controllers */
-App.UsersController = Ember.Controller.extend({
-
-
-
+App.UsersController = Em.ArrayController.extend({
+  content: [
+    App.User.create({
+      id: '1',
+      name: 'Jason',
+      email: 'jason.smale@gmail.com',
+      phone: '0402073344',
+      displayed: true
+    })
+  ]
 });
 
+console.log( App.UsersController );
+
 /* Views */
+App.UsersView = Em.View.extend({
+  templateName: 'select_users_template'
+});
