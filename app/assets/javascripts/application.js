@@ -13,5 +13,6 @@
 //= require jquery.min
 //= require handlebars.min
 //= require ember-latest
+//= require ember-resource
 //= require app
 //= require_tree .

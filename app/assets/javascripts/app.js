@@ -5,8 +5,10 @@ App = Em.Application.create({
   rootElement: '#app',
   storeNamespace: 'Tracker',
   ApplicationController: Em.Controller.extend(),
+  //AppView = Em.View.extend
   ready: function() {
     this.initialize();
+    console.log(App.usersController);
   }
 });
 
@@ -17,18 +19,24 @@ App.Router = Em.Router.extend({
     index: Em.Route.extend({
       route: '/',
       enter: function(router) {
-        console.log("entering root.index from", router.get('currentState.name'));
+        console.log("entering root.index from", router.getPath('currentState.name'));
       },
       connectOutlets: function(router) {
-        console.log("entered root.index, fully transitioned to", router.get('currentState.path'));
-        console.log( router.get('applicationController') );
-        //router.get('applicationController').connectOutlet('users', App.User.find());
+        console.log("entered root.index, fully transitioned to", router.getPath('currentState.name'));
+        router.get('applicationController').connectOutlet('users');//.set('view', App.usersView);
+        //console.log(router.get('usersController').get('content'));//.connectOutlet('users', App.User.find());
       }
     }),
 
-    /*enter: Em.Route.extend({
-      route: '/activities/:user'
-    })*/
+    activities: Em.Route.extend({
+      route: '/activities',
+      enter: function(router) {
+
+      },
+      connectOutlets: function(router) {
+        router.get('applicationController').connectOutlet('activites');
+      }
+    })
 
   })
 });
@@ -64,13 +72,40 @@ App.UsersController = Em.ArrayController.extend({
       email: 'jason.smale@gmail.com',
       phone: '0402073344',
       displayed: true
+    }),
+    App.User.create({
+      id: '2',
+      name: 'Sian',
+      email: 'sian.smale@gmail.com',
+      phone: '0402073344',
+      displayed: true
     })
   ]
 });
 
-console.log( App.UsersController );
+App.ActivitiesController = Em.ArrayController.extend({
+  content: []
+});
+
+App.ApplicationView = Em.ContainerView.extend({
+  elementId: 'awesome-app',
+  childViews: ['outletView'],
+  outletView: Em.View.create({
+    template: Em.Handlebars.compile('{{outlet}}')
+  })
+});
 
 /* Views */
-App.UsersView = Em.View.extend({
-  templateName: 'select_users_template'
+App.UsersView = Em.CollectionView.extend({
+  contentBinding: "controller.content",
+  classNames: ['users-list'],
+  itemViewClass: Em.View.extend({
+    tagName: 'a',
+    template: Em.Handlebars.compile('{{view.content.name}}')
+  })
+});
+
+App.ActivitesView = Em.CollectionView.extend({
+  contentBinding: 'controller.content',
+  elementId: 'activites'
 });
