@@ -8,7 +8,6 @@ App = Em.Application.create({
   //AppView = Em.View.extend
   ready: function() {
     this.initialize();
-    console.log(App.usersController);
   }
 });
 
@@ -42,13 +41,25 @@ App.Router = Em.Router.extend({
 });
 
 /* Models */
-App.User = Em.Object.extend({
-  id: null,
-  name: null,
-  email: null,
-  phone: null,
-  displayed: false
+App.User = Em.Resource.define({
+  url: '/users',
+  schema: {
+    id: Number,
+    name: String,
+    email: String,
+    phone: String
+  }
 });
+
+var user = App.User.create({
+  id: '1'
+});
+
+console.log(user);
+console.log(user.fetch().done(function(d){
+  console.log(d);
+}));
+console.log();
 
 /*App.Exercise = Em.Object.extend({
   id: null,
@@ -63,24 +74,24 @@ App.Activity = Em.Object.extend({
 });*/
 
 
+/*App.User.create({
+  id: '1',
+  name: 'Jason',
+  email: 'jason.smale@gmail.com',
+  phone: '0402073344',
+  displayed: true
+}),
+App.User.create({
+  id: '2',
+  name: 'Sian',
+  email: 'sian.smale@gmail.com',
+  phone: '0402073344',
+  displayed: true
+})*/
+
 /* Controllers */
 App.UsersController = Em.ArrayController.extend({
-  content: [
-    App.User.create({
-      id: '1',
-      name: 'Jason',
-      email: 'jason.smale@gmail.com',
-      phone: '0402073344',
-      displayed: true
-    }),
-    App.User.create({
-      id: '2',
-      name: 'Sian',
-      email: 'sian.smale@gmail.com',
-      phone: '0402073344',
-      displayed: true
-    })
-  ]
+  content: []
 });
 
 App.ActivitiesController = Em.ArrayController.extend({
