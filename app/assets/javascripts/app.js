@@ -5,7 +5,7 @@ App = Em.Application.create({
   rootElement: '#app',
   storeNamespace: 'Tracker',
   ApplicationController: Em.Controller.extend(),
-  //AppView = Em.View.extend
+  UsersController: Em.ArrayController.extend(),
   ready: function() {
     this.initialize();
   }
@@ -21,9 +21,7 @@ App.Router = Em.Router.extend({
         console.log("entering root.index from", router.getPath('currentState.name'));
       },
       connectOutlets: function(router) {
-        console.log("entered root.index, fully transitioned to", router.getPath('currentState.name'));
-        router.get('applicationController').connectOutlet('users');//.set('view', App.usersView);
-        //console.log(router.get('usersController').get('content'));//.connectOutlet('users', App.User.find());
+        router.get('applicationController').connectOutlet('users', App.User.find());
       }
     }),
 
@@ -41,25 +39,34 @@ App.Router = Em.Router.extend({
 });
 
 /* Models */
-App.User = Em.Resource.define({
-  url: '/users',
-  schema: {
-    id: Number,
-    name: String,
-    email: String,
-    phone: String
+App.User = Em.Object.extend();
+App.User.reopenClass({
+  allUsers: [],
+  find: function(){
+    $.ajax({
+      url: 'users.json',
+      dataType: 'json',
+      context: this,
+      success: function(response){
+        response.forEach(function(user){
+          this.allUsers.addObject(App.User.create(user))
+        }, this);
+      }
+    });
+    return this.allUsers;
   }
 });
 
-var user = App.User.create({
-  id: '1'
-});
 
-console.log(user);
-console.log(user.fetch().done(function(d){
-  console.log(d);
-}));
-console.log();
+// var user = App.User.create({
+//   id: '1'
+// });
+
+// console.log(user);
+// console.log(user.fetch().done(function(d){
+//   console.log(d);
+// }));
+// console.log();
 
 /*App.Exercise = Em.Object.extend({
   id: null,
@@ -90,9 +97,6 @@ App.User.create({
 })*/
 
 /* Controllers */
-App.UsersController = Em.ArrayController.extend({
-  content: []
-});
 
 App.ActivitiesController = Em.ArrayController.extend({
   content: []

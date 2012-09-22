@@ -21,8 +21,6 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 
-  gem 'ember-resource'
-
 end
 
 gem 'jquery-rails'

@@ -1,5 +1,5 @@
 == Tracker
 
-Build out the need for friends to track exercise & improve habits.
+Build out of the need for friends to track exercise & improve habits.
 
 Very much a WIP.
