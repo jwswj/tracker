@@ -8,6 +8,16 @@
 
 <section id="app">
 
+</section>
+
+<!-- /* Handlebars templates start */ -->
+<script type="text/x-handlebars" data-template-name="users">
+  {{#each user in controller}}
+    <a {{action showActivitesInput}}> {{user.name}} </a>
+  {{/each}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="activities">
   <!-- User START -->
   <div id="user">
     <a id="user_remove" href="#">Remove User</a>
@@ -58,25 +68,6 @@
     </div>
   </div>
   <!-- User END -->
-
-</section>
-
-<!-- /* Handlebars templates start */ -->
-<script id="select_users_template" type="text/x-handlebars">
-  <div id="select_user">
-    <a href="/input/adam">Adam</a>
-    <a href="/input/jason">Jason</a>
-    <a href="/input/sian">Sian</a>
-  </div>
-</script>
-
-<script id="user_template" type="text/x-handlebars">
-  {{#with view}}
-    {{#if oneLeft }}
-      <strong>{{entries.remaining}}</strong> item left
-    {{else}}
-      <strong>{{entries.remaining}}</strong> items left
-    {{/if}}
-  {{/with}}
 </script>
 <!-- /* Handlebars templates end */ -->
+
