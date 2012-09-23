@@ -11,6 +11,10 @@
 </section>
 
 <!-- /* Handlebars templates start */ -->
+<script type="text/x-handlebars" data-template-name="application">
+  {{outlet}}
+</script>
+
 <script type="text/x-handlebars" data-template-name="users">
   {{#each user in controller}}
     <a {{action showActivitesInput}}> {{user.name}} </a>
@@ -20,6 +24,7 @@
 <script type="text/x-handlebars" data-template-name="activities">
   <!-- User START -->
   <div id="user">
+    <a {{action selectUser}}>Select User</a>
     <a id="user_remove" href="#">Remove User</a>
     <h2>Adam</h2>
     <table>

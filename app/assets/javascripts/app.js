@@ -5,8 +5,6 @@ App = Em.Application.create({
   rootElement: '#app',
   storeNamespace: 'Tracker',
   ApplicationController: Em.Controller.extend(),
-  UsersController: Em.ArrayController.extend(),
-  ActivitiesController: Em.ArrayController.extend(),
   ready: function() {
     this.initialize();
   }
@@ -17,6 +15,7 @@ App.User = Em.Object.extend();
 App.User.reopenClass({
   allUsers: [],
   find: function(){
+    this.allUsers = [];
     $.ajax({
       url: 'users.json',
       dataType: 'json',
@@ -28,15 +27,34 @@ App.User.reopenClass({
       }
     });
     return this.allUsers;
+  },
+  findOne: function(id){
+    var user = App.User.create({
+      id: id
+    });
+    $.ajax({
+      url: 'users/'+id+'.json',
+      dataType: 'json',
+      context: user,
+      success: function(response){
+        this.setProperties(response);
+      }
+    });
+    return user;
   }
 });
 
-App.ApplicationView = Em.ContainerView.extend({
-  elementId: 'awesome-app',
-  childViews: ['outletView'],
-  outletView: Em.View.create({
-    template: Em.Handlebars.compile('{{outlet}}')
-  })
+// App.Exercises = Em.Object.extend();
+// App.Exercises.reopenClass({
+//   usersExercises
+// });
+
+/* Controllers */
+App.UsersController = Em.ArrayController.extend();
+App.ActivitesController = Em.ArrayController.extend();
+
+App.ApplicationView = Em.View.extend({
+  templateName: 'application'
 });
 
 /* Views */
@@ -44,24 +62,35 @@ App.UsersView = Em.View.extend({
   templateName: 'users'
 });
 
+App.ActivitesView = Em.View.extend({
+  templateName: 'activities'
+});
+
 /* Router */
 App.Router = Em.Router.extend({
+  enableLogging: true,
   root: Em.Route.extend({
-
-    showActivitesInput: Ember.Route.transitionTo('activities'),
 
     index: Em.Route.extend({
       route: '/',
+      showActivitesInput: Em.Route.transitionTo('activities'),
       connectOutlets: function(router) {
         router.get('applicationController').connectOutlet('users', App.User.find());
       }
     }),
 
     activities: Em.Route.extend({
-      route: '/activites/:user',
+      route: '/activites',
+      selectUser: Em.Route.transitionTo('index'),
       connectOutlets: function(router, context) {
         router.get('applicationController').connectOutlet('activites', context);
-      }
+      },
+      /*serialize: function(router, context){
+        return {id: context.get('id')}
+      },
+      deserialize: function(router, urlParams){
+        return App.User.findOne(urlParams.id);
+      }*/
     })
 
   })
