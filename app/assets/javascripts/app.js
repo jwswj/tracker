@@ -48,10 +48,9 @@ App.UsersView = Em.View.extend({
 App.Router = Em.Router.extend({
   root: Em.Route.extend({
 
-    showActivitesInput: Ember.Route.transitionTo('activities'),
-
     index: Em.Route.extend({
       route: '/',
+      showActivitesInput: Ember.Route.transitionTo('activities'),
       connectOutlets: function(router) {
         router.get('applicationController').connectOutlet('users', App.User.find());
       }
