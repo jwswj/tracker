@@ -14,3 +14,4 @@
 //= require handlebars.min
 //= require ember-latest
 //= require app
+//= require_tree .

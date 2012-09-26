@@ -17,7 +17,7 @@
 
 <script type="text/x-handlebars" data-template-name="users">
   {{#each user in controller}}
-    <a {{action showActivitesInput}}> {{user.name}} </a>
+    <a {{action showActivitesInput user}}> {{user.name}} </a>
   {{/each}}
 </script>
 
